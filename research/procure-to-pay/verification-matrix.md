@@ -1,0 +1,42 @@
+# P2P Verification Matrix (M0)
+
+**Execution:** None. The table defines future tests, not SAP test results.  
+**Evidence classes:** `DOCUMENTED` = verified in cited documentation; `OBSERVED` = executed and captured in authorized system (none yet).
+
+| Scenario | Input / variation | Documentation status | Runtime status | Question / acceptance observation |
+|---|---|---|---|---|
+| S01 baseline | PO 100 @ 100 CU, GR 60, invoice 60; PO-based IV | SAP-001, SAP-002, SAP-013, SAP-014, SAP-016 | NOT_RUN | Identify PO/GR/IR document links and scoped valuation/posting effects. |
+| S02 split receipt | PO 100, GR 60 then GR 40 | SAP-013 (PO-based IV), SAP-014/SAP-016 (scoped GR posting); SAP-003/010 contextual | NOT_RUN | Observe multiple material docs and PO item receipt totals. |
+| S03 invoice first | PO-based IV (NOT GR-based), PO 100, IR partial at different unit price, then GR | SAP-001, SAP-002 (direct support); SAP-017 (GR-based allocation counterexample); SAP-009, SAP-015 (specialized GR-based corroboration only) | NOT_RUN | Determine valuation/GR/IR differences under specific settings; the GR-based counterexample cannot serve as evidence for invoice-first permission. |
+| S04 tolerance | Price or quantity variance on invoice | SAP-004 (same on-premise edition) | NOT_RUN | Determine local on-premise tolerance configuration and blocking behavior. |
+| S05 overdelivery | Receive 110 against PO 100 | UNKNOWN | NOT_RUN | Which configured overdelivery tolerance/unlimited indicator applies; what is observed? `SAP-012` proves fields, not result. |
+| S06 reversal | Attempt cancellation of applicable 101 receipt with movement type 102; compare invoiced vs. uninvoiced receipt and PO-based vs. GR-based IV settings | SAP-018 (GR-based IV), SAP-020 (possible cancellation after IR without GR-based IV), SAP-021 (M7 021 cancellation error), SAP-005 (Maintenance context), SAP-011 (MM role) | NOT_RUN | Record invoice status, actual cancellation result/error, PO item and IV flag, Customizing, document links and stock/FI effects. Distinguish 102 cancellation from return delivery; KBA previews are contextual, not a universal quantity invariant. |
+| S07 blocked stock | Receive to 103; document 105 release as a separate subsequent step without assuming its posting result | SAP-007, SAP-016 (103 outcomes); SAP-019 (105 movement availability only) | NOT_RUN | Confirm material document but no FI document at 103; no valuated-stock increase; GR blocked-stock quantity **is recorded in PO history**, while open PO quantity is **not reduced** at 103. Test 105-specific FI/stock/open-quantity outcomes later under authorized configuration. |
+| S08 duplicate request | Resubmit same posting request / key | UNKNOWN | NOT_RUN | Identify exact API/transaction and whether duplicate postings occur. |
+| S09 authorization | Attempt posting without movement authorization | SAP-011 (MM movement-type role prerequisite; P2P-C18) | NOT_RUN | Investigate authorization check, denial or alternative outcome, and any posting side effects; record role and assignment. The exact result remains UNKNOWN until authorized execution. |
+
+## Future runtime evidence capture template
+
+```yaml
+scenario_id: S01
+environment:
+  product: SAP S/4HANA
+  deployment: on-premise
+  release: unknown
+  client_or_tenant: REDACTED
+  relevant_configuration: unknown
+authorization_confirmed: false
+execution_timestamp: null
+steps: []
+expected_documented_behavior: []
+actual_observations: []
+artifacts_redacted: []
+claim_status: UNKNOWN
+reviewer: null
+```
+
+## Exit criteria for this matrix
+
+- It covers successful and alternative process branches without asserting they were executed.
+- Every SAP-specific expected branch has a source, or is marked UNKNOWN.
+- The data-capture template cannot inadvertently claim success without explicit test evidence.
