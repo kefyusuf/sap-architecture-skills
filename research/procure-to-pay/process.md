@@ -43,7 +43,7 @@ These are **illustrative conceptual entries**, not observed accounting documents
 
 ## Alternative branch: IR before GR
 
-Invoice can precede goods receipt **under PO-based invoice verification**. SAP documentation describes a different valuation basis and GR/IR clearing order, with additional complications for partial invoices and price differences (`SAP-001`, `SAP-002`). **With GR-based invoice verification, the receipt comes first** (`SAP-015` with specialized corroboration from `SAP-009`); do not teach unrestricted invoice-first behavior.
+Invoice can precede goods receipt **under PO-based invoice verification**. SAP documentation describes a different valuation basis and GR/IR clearing order, with additional complications for partial invoices and price differences (`SAP-001`, `SAP-002`). **With GR-based invoice verification, invoice items are matched to the relevant goods-receipt items** (`SAP-017`, `SAP-013`). Receipt-before-invoice posting is stated explicitly in a specialized market-price context (`SAP-009`) and corroborated in a QM scenario (`SAP-015`); do not teach unrestricted invoice-first behavior or assume every item type shares identical prerequisites.
 
 **Synthetic contrast (not a real posting):** PO 100 @ 10 CU, invoice first for 50 @ 12 CU, then GR 70 -> SAP-002 documentation illustrates valuation 50 × 12 + 20 × 10 = 800 CU in the relevant branch; do not generalize accounting document lines from this valuation example.
 
@@ -53,7 +53,7 @@ Receipt into GR blocked stock with movement type 103 in the documented on-premis
 
 ## Reversal branch
 
-MM permits goods-movement reversal (`SAP-011`), and movement type 102 appears in particular documented Maintenance Management cancellation cases (`SAP-005`). Do not treat a reversal as deletion of the historical document or assume it is always permitted in any subsequent process state. Test exact preconditions later in an authorized environment.
+MM permits goods-movement reversal (`SAP-011`). For invoiced receipts under GR-based invoice verification, returns and reversals are constrained by invoice linkage and movement-type Customizing; the documented branches include invoice cancellation or a further linked goods receipt (`SAP-018`). Movement type 102 also appears in a contextual Maintenance Management cancellation example (`SAP-005`), not a universal permission rule. Do not treat a reversal as deletion of the historical document or assume it is always permitted in any subsequent process state. Test exact preconditions later in an authorized environment.
 
 ## Boundary to an independent ERP design
 
