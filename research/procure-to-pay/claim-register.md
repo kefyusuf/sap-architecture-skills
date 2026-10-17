@@ -20,6 +20,7 @@
 | P2P-C14 | Purchase-order item data model contains overdelivery tolerance and unlimited-overdelivery indicators. | `DOCUMENTED` | SAP-012 | Field availability does not prove a specific overdelivery is accepted or rejected; S05 remains UNKNOWN. |
 | P2P-C15 | The S/4HANA MM-IM PO goods-receipt procedure provides movement type 101 for goods intended for warehouse or consumption. | `DOCUMENTED` | SAP-014 | This does not prove identical financial posting for warehouse versus consumption or special-stock scenarios. |
 | P2P-C16 | In the documented MM-IM goods-receipt result description, a normal valuated warehouse GR produces a material document and relevant FI document, updating stock; a consumption receipt and GR blocked stock follow different branches. | `DOCUMENTED` | SAP-016 | Do not generalize the stock or FI outcome to 103, special stocks, non-valuated materials or all account assignments. |
+| P2P-C17 | The scoped on-premise MM-IM goods-movement feature comparison lists movement type 105 as release from goods receipt blocked stock. | `DOCUMENTED` | SAP-019 | Feature-support listing for the compared apps only. It establishes no FI posting, stock, valuation or open-PO-quantity result for a 105 release, and S07 remains `NOT_RUN`. |
 
 ## Review disposition
 
